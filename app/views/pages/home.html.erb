@@ -1,0 +1,186 @@
+<%# Hero Section %>
+<section class="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+  <%# Background gradient %>
+  <div class="absolute inset-0 bg-gradient-to-b from-stone-950 via-stone-900 to-stone-950"></div>
+  
+  <%# Decorative background pattern %>
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-amber-500 rounded-full blur-[128px]"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-900 rounded-full blur-[128px]"></div>
+  </div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-4 text-center py-20">
+    <%# Main title %>
+    <div class="mb-8">
+      <h1 class="font-cinzel text-5xl md:text-7xl font-bold text-amber-100 mb-4 tracking-wide">
+        Sixth Age Archive
+      </h1>
+      <div class="flex items-center justify-center gap-4 text-amber-600">
+        <span class="w-16 h-px bg-gradient-to-r from-transparent to-amber-600"></span>
+        <span class="font-cinzel text-lg tracking-widest uppercase">Warhammer Fantasy 6th Edition</span>
+        <span class="w-16 h-px bg-gradient-to-l from-transparent to-amber-600"></span>
+      </div>
+    </div>
+
+    <%# Description %>
+    <p class="text-xl text-stone-400 mb-12 max-w-2xl mx-auto leading-relaxed">
+      Complete archive of rules, army books, and army lists for the greatest edition 
+      of Warhammer Fantasy Battles. Download PDFs and build your armies.
+    </p>
+
+    <%# CTA buttons %>
+    <div class="flex flex-wrap items-center justify-center gap-4">
+      <%= link_to rulebooks_path, class: "inline-flex items-center gap-2 px-6 py-3 font-cinzel font-semibold rounded bg-gradient-to-b from-amber-600 to-amber-700 text-amber-50 hover:from-amber-500 hover:to-amber-600 border border-amber-500/50 shadow-lg transition-all" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+        Browse Rules
+      <% end %>
+      <%= link_to armies_path, class: "inline-flex items-center gap-2 px-6 py-3 font-cinzel font-semibold rounded bg-stone-800 text-stone-200 hover:bg-stone-700 border border-stone-600 shadow-lg transition-all" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+        </svg>
+        Army Books
+      <% end %>
+      <%= link_to new_army_list_path, class: "inline-flex items-center gap-2 px-6 py-3 font-cinzel font-semibold rounded text-amber-400 hover:text-amber-300 hover:bg-amber-900/20 border border-transparent hover:border-amber-700/50 transition-all" do %>
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+        </svg>
+        Build Army List
+      <% end %>
+    </div>
+
+    <%# Stats %>
+    <div class="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
+      <div class="text-center">
+        <div class="font-cinzel text-3xl font-bold text-amber-400"><%= @rulebooks_count %></div>
+        <div class="text-stone-500 text-sm">Rulebooks</div>
+      </div>
+      <div class="text-center">
+        <div class="font-cinzel text-3xl font-bold text-amber-400"><%= @armies_count %></div>
+        <div class="text-stone-500 text-sm">Armies</div>
+      </div>
+      <div class="text-center">
+        <div class="font-cinzel text-3xl font-bold text-amber-400">∞</div>
+        <div class="text-stone-500 text-sm">Glory</div>
+      </div>
+    </div>
+  </div>
+
+  <%# Scroll indicator %>
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+    <svg class="w-6 h-6 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+    </svg>
+  </div>
+</section>
+
+<%# Features Section %>
+<section class="py-20 bg-stone-900/50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16">
+      <h2 class="font-cinzel text-2xl md:text-3xl font-bold text-amber-100 mb-2">Everything You Need</h2>
+      <p class="text-stone-400 text-lg">All official 6th Edition materials in one place</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <%# Core Rules %>
+      <div class="bg-stone-900/80 backdrop-blur-sm rounded-lg border-2 border-amber-900/50 p-6 hover:border-amber-700/50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 text-center">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-amber-600 to-amber-800 flex items-center justify-center">
+          <svg class="w-8 h-8 text-amber-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <h3 class="font-cinzel text-xl font-semibold text-amber-100 mb-3">Core Rules</h3>
+        <p class="text-stone-400 mb-6">
+          Complete rulebook, FAQs, errata, and all supplements including Storm of Chaos, 
+          Siege rules, and campaign systems.
+        </p>
+        <%= link_to "Browse Rules →", rulebooks_path, class: "text-amber-400 hover:text-amber-300 font-semibold" %>
+      </div>
+
+      <%# Army Books %>
+      <div class="bg-stone-900/80 backdrop-blur-sm rounded-lg border-2 border-amber-900/50 p-6 hover:border-amber-700/50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 text-center">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-red-700 to-red-900 flex items-center justify-center">
+          <svg class="w-8 h-8 text-red-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
+          </svg>
+        </div>
+        <h3 class="font-cinzel text-xl font-semibold text-amber-100 mb-3">Army Books</h3>
+        <p class="text-stone-400 mb-6">
+          All official army books plus White Dwarf lists: Kislev, Chaos Dwarfs, 
+          Dogs of War, Zombie Pirates, and more.
+        </p>
+        <%= link_to "View Armies →", armies_path, class: "text-amber-400 hover:text-amber-300 font-semibold" %>
+      </div>
+
+      <%# Army Builder %>
+      <div class="bg-stone-900/80 backdrop-blur-sm rounded-lg border-2 border-amber-900/50 p-6 hover:border-amber-700/50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 text-center">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-emerald-700 to-emerald-900 flex items-center justify-center">
+          <svg class="w-8 h-8 text-emerald-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3 class="font-cinzel text-xl font-semibold text-amber-100 mb-3">Army Builder</h3>
+        <p class="text-stone-400 mb-6">
+          Build and validate army lists for different point limits. 
+          Automatic composition checks and PDF export.
+        </p>
+        <%= link_to "Start Building →", new_army_list_path, class: "text-amber-400 hover:text-amber-300 font-semibold" %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# Armies Preview Section %>
+<% if @featured_armies.any? %>
+<section class="py-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-end justify-between mb-12">
+      <div>
+        <h2 class="font-cinzel text-2xl md:text-3xl font-bold text-amber-100 mb-2">Choose Your Army</h2>
+        <p class="text-stone-400 text-lg">From noble Empire to savage Orcs</p>
+      </div>
+      <%= link_to "View All Armies →", armies_path, class: "text-amber-400 hover:text-amber-300 font-semibold hidden sm:block" %>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @featured_armies.each do |army| %>
+        <%= link_to army_path(army), class: "bg-stone-900/80 backdrop-blur-sm rounded-lg border-2 border-amber-900/50 p-6 hover:border-amber-700/50 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1 group block" do %>
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded bg-stone-800 flex items-center justify-center shrink-0 group-hover:bg-stone-700 transition-colors">
+              <span class="font-cinzel text-xl font-bold text-amber-500"><%= army.name[0] %></span>
+            </div>
+            <div>
+              <h3 class="font-cinzel text-lg font-semibold text-amber-100 group-hover:text-amber-300 transition-colors"><%= army.name %></h3>
+              <p class="text-stone-500 text-sm"><%= army.source || "Army Book" %></p>
+              <p class="text-stone-400 text-sm mt-2"><%= army.units.count %> units</p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= link_to "View All Armies →", armies_path, class: "text-amber-400 hover:text-amber-300 font-semibold block text-center mt-8 sm:hidden" %>
+  </div>
+</section>
+<% end %>
+
+<%# CTA Section %>
+<section class="py-20 bg-gradient-to-b from-stone-900 to-stone-950">
+  <div class="max-w-4xl mx-auto px-4 text-center">
+    <h2 class="font-cinzel text-3xl md:text-4xl font-bold text-amber-100 mb-6">
+      Ready to Wage War?
+    </h2>
+    <p class="text-xl text-stone-400 mb-8">
+      Start building your army list now. Select your faction, choose your warriors, 
+      and prepare for battle in the Old World.
+    </p>
+    <%= link_to new_army_list_path, class: "inline-flex items-center gap-2 px-8 py-4 font-cinzel font-semibold text-lg rounded bg-gradient-to-b from-amber-600 to-amber-700 text-amber-50 hover:from-amber-500 hover:to-amber-600 border border-amber-500/50 shadow-lg transition-all" do %>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+      </svg>
+      Create Army List
+    <% end %>
+  </div>
+</section>

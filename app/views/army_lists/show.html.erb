@@ -1,0 +1,189 @@
+<%# Page Header %>
+<section class="py-16 bg-gradient-to-b from-stone-900 to-stone-950">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-3 mb-2">
+          <%= link_to army_lists_path, class: "text-stone-500 hover:text-amber-400 transition-colors" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          <% end %>
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold uppercase tracking-wide bg-stone-700/50 text-stone-300 border border-stone-600/50"><%= @army_list.game_format.name %></span>
+        </div>
+        <h1 class="font-cinzel text-4xl font-bold text-amber-100 mb-2">
+          <%= @army_list.name %>
+        </h1>
+        <p class="text-xl text-stone-400"><%= @army_list.army.name %></p>
+        
+        <% if @army_list.notes.present? %>
+          <p class="text-stone-500 mt-4 max-w-2xl"><%= @army_list.notes %></p>
+        <% end %>
+      </div>
+
+      <div class="flex flex-col items-end gap-4">
+        <div class="text-right">
+          <div class="font-cinzel text-4xl font-bold text-amber-400"><%= @army_list.total_points || 0 %></div>
+          <div class="text-stone-500">/ <%= @army_list.game_format.points_limit %> points</div>
+        </div>
+
+        <div class="flex gap-2">
+          <%= link_to edit_army_list_path(@army_list), class: "inline-flex items-center gap-2 px-6 py-3 font-cinzel font-semibold rounded bg-gradient-to-b from-amber-600 to-amber-700 text-amber-50 hover:from-amber-500 hover:to-amber-600 border border-amber-500/50 shadow-lg transition-all" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+            </svg>
+            Edit
+          <% end %>
+          <%= link_to export_pdf_army_list_path(@army_list), class: "inline-flex items-center gap-2 px-6 py-3 font-cinzel font-semibold rounded bg-stone-800 text-stone-200 hover:bg-stone-700 border border-stone-600 shadow-lg transition-all" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Export PDF
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <%# Validation Status %>
+    <% if @validation_errors.any? %>
+      <div class="mt-6 p-4 bg-red-900/30 border border-red-700 rounded-lg">
+        <h3 class="text-red-300 font-semibold mb-2 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          Composition Errors
+        </h3>
+        <ul class="text-red-400 text-sm space-y-1">
+          <% @validation_errors.each do |error| %>
+            <li>• <%= error %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% else %>
+      <div class="mt-6 p-4 bg-emerald-900/30 border border-emerald-700 rounded-lg">
+        <p class="text-emerald-300 flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+          Army composition is valid
+        </p>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<%# Points Breakdown %>
+<section class="py-8 bg-stone-900/50 border-y border-stone-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-5 gap-4 text-center">
+      <% pts = @army_list.points_by_type %>
+      <% [
+        ["Lords", pts[:lords], @army_list.game_format.max_lords_points, "text-purple-400"],
+        ["Heroes", pts[:heroes], @army_list.game_format.max_heroes_points, "text-blue-400"],
+        ["Core", pts[:core], @army_list.game_format.min_core_points, "text-stone-400"],
+        ["Special", pts[:special], nil, "text-amber-400"],
+        ["Rare", pts[:rare], nil, "text-red-400"]
+      ].each do |name, current, limit, color| %>
+        <div>
+          <div class="text-xs text-stone-500 uppercase tracking-wide mb-1"><%= name %></div>
+          <div class="font-cinzel text-xl font-bold <%= color %>"><%= current %></div>
+          <% if limit %>
+            <div class="text-xs text-stone-500">
+              <% if name == "Core" %>
+                min <%= limit %>
+              <% else %>
+                max <%= limit %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<%# Unit List %>
+<section class="py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <% if @units_by_type.any? %>
+      <% Unit::UNIT_TYPES.each do |unit_type| %>
+        <% units = @units_by_type[unit_type] %>
+        <% if units&.any? %>
+          <% badge_color = case unit_type
+             when 'lord' then 'bg-purple-900/50 text-purple-300 border-purple-700/50'
+             when 'hero' then 'bg-blue-900/50 text-blue-300 border-blue-700/50'
+             when 'core' then 'bg-stone-700/50 text-stone-300 border-stone-600/50'
+             when 'special' then 'bg-amber-900/50 text-amber-300 border-amber-700/50'
+             when 'rare' then 'bg-red-900/50 text-red-300 border-red-700/50'
+             end %>
+          <div class="mb-8">
+            <h2 class="font-cinzel text-xl font-semibold mb-4 flex items-center gap-3">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold uppercase tracking-wide border <%= badge_color %>"><%= unit_type.titleize %></span>
+              <span class="text-stone-500 font-normal text-base">
+                <%= units.sum(&:calculated_cost) %> pts
+              </span>
+            </h2>
+
+            <div class="space-y-3">
+              <% units.each do |alu| %>
+                <div class="bg-stone-900/80 backdrop-blur-sm rounded-lg border-2 border-amber-900/50 p-4 shadow-lg">
+                  <div class="flex items-start justify-between">
+                    <div>
+                      <h3 class="font-semibold text-lg text-amber-100">
+                        <%= alu.unit.name %>
+                        <span class="text-stone-500 font-normal">×<%= alu.quantity %></span>
+                      </h3>
+                      
+                      <%# Stats %>
+                      <% if alu.unit.stats.present? %>
+                        <div class="flex gap-1 mt-2 text-xs">
+                          <% alu.unit.stat_line.each do |stat, value| %>
+                            <div class="px-2 py-1 bg-stone-800 rounded text-center min-w-[32px]">
+                              <div class="text-amber-500 font-semibold"><%= stat %></div>
+                              <div class="text-stone-300"><%= value || "-" %></div>
+                            </div>
+                          <% end %>
+                        </div>
+                      <% end %>
+
+                      <%# Upgrades %>
+                      <% if alu.selected_upgrades_details.any? %>
+                        <div class="mt-2 text-sm text-stone-400">
+                          <span class="text-stone-500">Upgrades:</span>
+                          <%= alu.selected_upgrades_details.map { |u| "#{u[:name]} (+#{u[:cost]} pts)" }.join(", ") %>
+                        </div>
+                      <% end %>
+
+                      <%# Special Rules %>
+                      <% if alu.unit.special_rules.present? %>
+                        <div class="mt-2 text-sm text-stone-500">
+                          <span class="text-stone-600">Special Rules:</span> <%= alu.unit.special_rules %>
+                        </div>
+                      <% end %>
+                    </div>
+
+                    <div class="text-right">
+                      <div class="font-cinzel text-2xl text-amber-400 font-bold"><%= alu.calculated_cost %></div>
+                      <div class="text-stone-500 text-sm">points</div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <div class="text-center py-16">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-stone-800 flex items-center justify-center">
+          <svg class="w-8 h-8 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+        </div>
+        <h3 class="font-cinzel text-lg text-stone-400 mb-2">No units yet</h3>
+        <p class="text-stone-500 mb-4">Start building your army by adding units.</p>
+        <%= link_to "Edit Army List", edit_army_list_path(@army_list), class: "inline-flex items-center gap-2 px-6 py-3 font-cinzel font-semibold rounded bg-gradient-to-b from-amber-600 to-amber-700 text-amber-50 hover:from-amber-500 hover:to-amber-600 border border-amber-500/50 shadow-lg transition-all" %>
+      </div>
+    <% end %>
+  </div>
+</section>

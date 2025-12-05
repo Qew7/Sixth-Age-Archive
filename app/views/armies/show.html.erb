@@ -1,0 +1,141 @@
+<%# Page Header %>
+<section class="py-16 bg-gradient-to-b from-stone-900 to-stone-950">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row md:items-start gap-8">
+      <%# Army Book Cover %>
+      <% if @army.book_cover_url.present? %>
+        <%= image_tag @army.book_cover_url, class: "w-40 h-52 object-cover rounded-lg shadow-2xl border border-amber-900/30", alt: @army.name %>
+      <% else %>
+        <div class="w-40 h-52 bg-gradient-to-br from-stone-700 to-stone-800 rounded-lg shadow-2xl border border-amber-900/30 flex items-center justify-center shrink-0">
+          <span class="font-cinzel text-5xl font-bold text-amber-600"><%= @army.name[0] %></span>
+        </div>
+      <% end %>
+
+      <div class="flex-1">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold uppercase tracking-wide border bg-stone-700/50 text-stone-300 border-stone-600/50">
+            <%= @army.source_type %>
+          </span>
+        </div>
+        <h1 class="font-cinzel text-4xl md:text-5xl font-bold text-amber-100 mb-2">
+          <%= @army.name %>
+        </h1>
+        <p class="text-stone-400 text-lg mb-4"><%= @army.source || "Army Book" %></p>
+        
+        <% if @army.description.present? %>
+          <p class="text-stone-300 max-w-2xl mb-6"><%= @army.description %></p>
+        <% end %>
+
+        <div class="flex flex-wrap gap-4">
+          <% if @army.pdf.attached? %>
+            <%= link_to download_army_path(@army), class: "inline-flex items-center gap-2 px-6 py-3 font-cinzel font-semibold rounded bg-gradient-to-b from-amber-600 to-amber-700 text-amber-50 hover:from-amber-500 hover:to-amber-600 border border-amber-500/50 shadow-lg transition-all" do %>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+              Download PDF
+            <% end %>
+          <% end %>
+          <%= link_to new_army_list_path(army_id: @army.id), class: "inline-flex items-center gap-2 px-6 py-3 font-cinzel font-semibold rounded bg-stone-800 text-stone-200 hover:bg-stone-700 border border-stone-600 shadow-lg transition-all" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            Build Army List
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%# Units Section %>
+<section class="py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <% if @units_by_type.any? %>
+      <% Unit::UNIT_TYPES.each do |unit_type| %>
+        <% units = @units_by_type[unit_type] %>
+        <% if units&.any? %>
+          <% badge_color = case unit_type
+             when 'lord' then 'bg-purple-900/50 text-purple-300 border-purple-700/50'
+             when 'hero' then 'bg-blue-900/50 text-blue-300 border-blue-700/50'
+             when 'core' then 'bg-stone-700/50 text-stone-300 border-stone-600/50'
+             when 'special' then 'bg-amber-900/50 text-amber-300 border-amber-700/50'
+             when 'rare' then 'bg-red-900/50 text-red-300 border-red-700/50'
+             end %>
+          <div class="mb-10">
+            <h2 class="font-cinzel text-xl font-semibold mb-4 flex items-center gap-3">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold uppercase tracking-wide border <%= badge_color %>"><%= unit_type.titleize %></span>
+              <span class="text-stone-500 font-normal text-base">(<%= units.count %> units)</span>
+            </h2>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="bg-stone-800/50">
+                    <th class="px-4 py-3 text-left text-amber-400 font-cinzel font-semibold">Unit</th>
+                    <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">M</th>
+                    <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">WS</th>
+                    <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">BS</th>
+                    <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">S</th>
+                    <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">T</th>
+                    <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">W</th>
+                    <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">I</th>
+                    <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">A</th>
+                    <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">Ld</th>
+                    <th class="px-4 py-3 text-right text-amber-400 font-cinzel font-semibold">Points</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-stone-800">
+                  <% units.each do |unit| %>
+                    <tr class="hover:bg-stone-800/30 transition-colors">
+                      <td class="px-4 py-3">
+                        <div class="font-semibold text-stone-200"><%= unit.name %></div>
+                        <% if unit.min_size && unit.max_size %>
+                          <div class="text-xs text-stone-500">
+                            <%= unit.min_size %>-<%= unit.max_size %> models
+                            <% if unit.cost_per_model && unit.cost_per_model > 0 %>
+                              (+<%= unit.cost_per_model %> pts/model)
+                            <% end %>
+                          </div>
+                        <% end %>
+                      </td>
+                      <% stats = unit.stat_line %>
+                      <td class="px-2 py-3 text-center text-stone-300"><%= stats["M"] || "-" %></td>
+                      <td class="px-2 py-3 text-center text-stone-300"><%= stats["WS"] || "-" %></td>
+                      <td class="px-2 py-3 text-center text-stone-300"><%= stats["BS"] || "-" %></td>
+                      <td class="px-2 py-3 text-center text-stone-300"><%= stats["S"] || "-" %></td>
+                      <td class="px-2 py-3 text-center text-stone-300"><%= stats["T"] || "-" %></td>
+                      <td class="px-2 py-3 text-center text-stone-300"><%= stats["W"] || "-" %></td>
+                      <td class="px-2 py-3 text-center text-stone-300"><%= stats["I"] || "-" %></td>
+                      <td class="px-2 py-3 text-center text-stone-300"><%= stats["A"] || "-" %></td>
+                      <td class="px-2 py-3 text-center text-stone-300"><%= stats["Ld"] || "-" %></td>
+                      <td class="px-4 py-3 text-right">
+                        <span class="font-cinzel text-amber-400 font-bold"><%= unit.base_cost %> pts</span>
+                      </td>
+                    </tr>
+                    <% if unit.special_rules.present? %>
+                      <tr class="bg-stone-900/30">
+                        <td colspan="11" class="px-4 py-2 text-xs text-stone-400">
+                          <span class="text-stone-500">Special Rules:</span> <%= unit.special_rules %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    <% else %>
+      <div class="text-center py-16">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-stone-800 flex items-center justify-center">
+          <svg class="w-8 h-8 text-stone-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+          </svg>
+        </div>
+        <h3 class="font-cinzel text-lg text-stone-400 mb-2">No units data yet</h3>
+        <p class="text-stone-500">Unit profiles for this army will be added soon.</p>
+      </div>
+    <% end %>
+  </div>
+</section>

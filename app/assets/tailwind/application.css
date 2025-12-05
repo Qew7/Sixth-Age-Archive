@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/* Custom fonts */
+@font-face {
+  font-family: 'Cinzel';
+  src: local('Cinzel');
+}
+
+/* Custom theme */
+@theme {
+  --font-cinzel: "Cinzel", serif;
+  --font-serif: "Crimson Text", Georgia, serif;
+  
+  --color-wh-gold: #d97706;
+  --color-wh-gold-light: #fbbf24;
+  --color-wh-dark: #1c1917;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1c1917;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #44403c;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #57534e;
+}
