@@ -450,6 +450,35 @@ special_rules_data = [
   { name: "Standard of Shielding", category: "magic_item", description: "6+ Ward Save vs shooting. 20 points." },
   
   # ============================================
+  # WAR MACHINE RULES
+  # ============================================
+  { name: "Stone Thrower", category: "rule", description: "War machine that fires using the stone thrower template. Guess range before firing. Strength 3(9) at centre, S3 under template. No armour saves allowed against centre hit." },
+  { name: "Cannon", category: "rule", description: "War machine that fires using cannon rules. Guess range, roll artillery dice for bounce. Strength 10, D6 wounds, no armour save. May misfire." },
+  { name: "Bolt Thrower", category: "rule", description: "War machine that fires a single powerful bolt. Strength 6, causes D3 wounds. May fire as single shot or volley." },
+  { name: "Inaccurate", category: "rule", description: "When rolling to hit, this weapon scatters D6\" in a random direction before resolving hits." },
+  { name: "Misfire", category: "rule", description: "On a Misfire result on the Artillery dice, roll on the Misfire table. Results range from destroyed to delayed firing." },
+  { name: "Guess Range", category: "rule", description: "Before firing, declare target point. Measure actual distance - if guess is wrong, shot lands short or overshoots." },
+  
+  # ============================================
+  # WIZARD RULES
+  # ============================================
+  { name: "Wizard", category: "rule", description: "Can cast spells from their chosen Lore of Magic. Level determines number of spells known and power dice generated." },
+  { name: "Level 1 Wizard", category: "rule", description: "Knows 1 spell. Generates 1 Power Dice per turn." },
+  { name: "Level 2 Wizard", category: "rule", description: "Knows 2 spells. Generates 1 Power Dice per turn." },
+  { name: "Level 3 Wizard", category: "rule", description: "Knows 3 spells. Generates 2 Power Dice per turn." },
+  { name: "Level 4 Wizard", category: "rule", description: "Knows 4 spells. Generates 2 Power Dice per turn." },
+  
+  # ============================================
+  # ADDITIONAL RULES
+  # ============================================
+  { name: "Battle Standard", category: "rule", description: "Units within 12\" may re-roll failed Break tests. If lost, enemy gains +D6 Victory Points." },
+  { name: "Knightly Orders", category: "rule", description: "Empire Knights belong to various Knightly Orders, each with their own traditions and heraldry." },
+  { name: "Counter-Charge", category: "rule", description: "Detachment special rule. If parent unit is charged, detachment may declare a counter-charge." },
+  { name: "Support Fire", category: "rule", description: "Detachment special rule. If parent unit is charged, detachment may Stand and Shoot at the chargers." },
+  { name: "Stupidity", category: "rule", description: "At the start of each turn, take a Leadership test. If failed, unit moves D6\" forward and may do nothing else this turn." },
+  { name: "1+ Armour Save", category: "armour", description: "Best possible armour save. Still fails on a natural roll of 1. May be modified by high Strength attacks." },
+  
+  # ============================================
   # EQUIPMENT & MOUNTS
   # ============================================
   { name: "Warhorse", category: "equipment", description: "Cavalry mount. M8, WS3, S3, T3, W1, I3, A1, Ld5." },
