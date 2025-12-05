@@ -95,7 +95,7 @@ DWARF_SPECIAL_RULES = [
 
 def seed_dwarfs
   ArmySeeder.seed_army("Dwarfs", DWARFS_UNITS)
-  
+
   DWARF_SPECIAL_RULES.each do |rule_data|
     rule = SpecialRule.find_or_initialize_by(name: rule_data[:name])
     rule.description = rule_data[:description]
@@ -103,4 +103,3 @@ def seed_dwarfs
     rule.save!
   end
 end
-

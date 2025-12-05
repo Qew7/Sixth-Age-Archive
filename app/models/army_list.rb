@@ -27,19 +27,19 @@ class ArmyList < ApplicationRecord
   def valid_composition?
     errors = []
     pts = points_by_type
-    
+
     if pts[:lords] > game_format.max_lords_points
       errors << "Lords exceed #{game_format.effective_restrictions['max_lords_percent']}% limit"
     end
-    
+
     if pts[:heroes] > game_format.max_heroes_points
       errors << "Heroes exceed #{game_format.effective_restrictions['max_heroes_percent']}% limit"
     end
-    
+
     if pts[:core] < game_format.min_core_points
       errors << "Core units below #{game_format.effective_restrictions['min_core_percent']}% minimum"
     end
-    
+
     errors
   end
 

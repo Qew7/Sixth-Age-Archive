@@ -97,7 +97,7 @@ VAMPIRE_COUNTS_SPECIAL_RULES = [
 
 def seed_vampire_counts
   ArmySeeder.seed_army("Vampire Counts", VAMPIRE_COUNTS_UNITS)
-  
+
   VAMPIRE_COUNTS_SPECIAL_RULES.each do |rule_data|
     rule = SpecialRule.find_or_initialize_by(name: rule_data[:name])
     rule.description = rule_data[:description]
@@ -105,4 +105,3 @@ def seed_vampire_counts
     rule.save!
   end
 end
-

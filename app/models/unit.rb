@@ -23,12 +23,12 @@ class Unit < ApplicationRecord
   def calculate_cost(quantity, selected_upgrades = [])
     total = base_cost
     total += (quantity - (min_size || 1)) * (cost_per_model || 0)
-    
+
     selected_upgrades.each do |upgrade_key|
       upgrade = upgrades&.dig(upgrade_key)
       total += upgrade["cost"].to_i if upgrade
     end
-    
+
     total
   end
 

@@ -95,7 +95,7 @@ OGRE_KINGDOMS_SPECIAL_RULES = [
 
 def seed_ogre_kingdoms
   ArmySeeder.seed_army("Ogre Kingdoms", OGRE_KINGDOMS_UNITS)
-  
+
   OGRE_KINGDOMS_SPECIAL_RULES.each do |rule_data|
     rule = SpecialRule.find_or_initialize_by(name: rule_data[:name])
     rule.description = rule_data[:description]
@@ -103,4 +103,3 @@ def seed_ogre_kingdoms
     rule.save!
   end
 end
-

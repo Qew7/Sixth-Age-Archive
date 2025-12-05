@@ -91,4 +91,3 @@ EMPIRE_UNITS = [
 def seed_empire
   ArmySeeder.seed_army("The Empire", EMPIRE_UNITS)
 end
-

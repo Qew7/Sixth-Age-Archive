@@ -97,7 +97,7 @@ DARK_ELF_SPECIAL_RULES = [
 
 def seed_dark_elves
   ArmySeeder.seed_army("Dark Elves", DARK_ELVES_UNITS)
-  
+
   DARK_ELF_SPECIAL_RULES.each do |rule_data|
     rule = SpecialRule.find_or_initialize_by(name: rule_data[:name])
     rule.description = rule_data[:description]
@@ -105,4 +105,3 @@ def seed_dark_elves
     rule.save!
   end
 end
-

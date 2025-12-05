@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ArmyListsController < ApplicationController
-  before_action :set_army_list, only: [:show, :edit, :update, :destroy, :add_unit, :remove_unit, :update_unit, :export_pdf]
+  before_action :set_army_list, only: [ :show, :edit, :update, :destroy, :add_unit, :remove_unit, :update_unit, :export_pdf ]
 
   def index
     @army_lists = ArmyList.includes(:army, :game_format).order(updated_at: :desc)
@@ -20,7 +20,7 @@ class ArmyListsController < ApplicationController
 
   def create
     @army_list = ArmyList.new(army_list_params)
-    
+
     if @army_list.save
       redirect_to edit_army_list_path(@army_list), notice: "Army list created! Start adding units."
     else
@@ -57,13 +57,13 @@ class ArmyListsController < ApplicationController
   def add_unit
     unit = Unit.find(params[:unit_id])
     quantity = params[:quantity].to_i.positive? ? params[:quantity].to_i : (unit.min_size || 1)
-    
+
     army_list_unit = @army_list.army_list_units.build(
       unit: unit,
       quantity: quantity,
       upgrades_selected: []
     )
-    
+
     if army_list_unit.save
       @army_list.save # Recalculate total
       respond_to do |format|
@@ -79,7 +79,7 @@ class ArmyListsController < ApplicationController
     army_list_unit = @army_list.army_list_units.find(params[:army_list_unit_id])
     army_list_unit.destroy
     @army_list.save # Recalculate total
-    
+
     respond_to do |format|
       format.html { redirect_to edit_army_list_path(@army_list), notice: "Unit removed." }
       format.turbo_stream
@@ -88,7 +88,7 @@ class ArmyListsController < ApplicationController
 
   def update_unit
     army_list_unit = @army_list.army_list_units.find(params[:army_list_unit_id])
-    
+
     if army_list_unit.update(
       quantity: params[:quantity],
       upgrades_selected: params[:upgrades_selected] || []

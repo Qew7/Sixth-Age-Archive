@@ -130,7 +130,7 @@ ORCS_SPECIAL_RULES = [
 
 def seed_orcs_and_goblins
   ArmySeeder.seed_army("Orcs & Goblins", ORCS_AND_GOBLINS_UNITS)
-  
+
   # Add special rules
   ORCS_SPECIAL_RULES.each do |rule_data|
     rule = SpecialRule.find_or_initialize_by(name: rule_data[:name])
@@ -139,4 +139,3 @@ def seed_orcs_and_goblins
     rule.save!
   end
 end
-

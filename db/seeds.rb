@@ -6,10 +6,10 @@ puts "Seeding database..."
 puts "Creating game formats..."
 formats = [
   # Warband formats (General's Compendium)
-  { 
-    name: "Small Warband", 
-    points_limit: 199, 
-    restrictions: { 
+  {
+    name: "Small Warband",
+    points_limit: 199,
+    restrictions: {
       "max_lords_percent" => 0,
       "max_heroes_percent" => 100,
       "min_core_percent" => 0,
@@ -29,12 +29,12 @@ formats = [
         "Unit Champion commander must stay with unit",
         "Minimum unit sizes reduced (see rules)"
       ]
-    } 
+    }
   },
-  { 
-    name: "Large Warband", 
-    points_limit: 500, 
-    restrictions: { 
+  {
+    name: "Large Warband",
+    points_limit: 500,
+    restrictions: {
       "max_lords_percent" => 0,
       "max_heroes_percent" => 100,
       "min_core_percent" => 0,
@@ -62,57 +62,57 @@ formats = [
         "0-1 Flying unit or creature",
         "Minimum unit sizes reduced (see rules)"
       ]
-    } 
+    }
   },
   # Standard formats
-  { 
-    name: "Border Patrol", 
-    points_limit: 500, 
-    restrictions: { 
-      "max_lords_percent" => 0, 
-      "max_heroes_percent" => 25, 
+  {
+    name: "Border Patrol",
+    points_limit: 500,
+    restrictions: {
+      "max_lords_percent" => 0,
+      "max_heroes_percent" => 25,
       "min_core_percent" => 25,
       "max_special_choices" => 2,
       "max_rare_choices" => 1,
       "allow_lords" => false
-    } 
+    }
   },
-  { 
-    name: "Skirmish", 
-    points_limit: 1000, 
-    restrictions: { 
-      "max_lords_percent" => 0, 
-      "max_heroes_percent" => 50, 
+  {
+    name: "Skirmish",
+    points_limit: 1000,
+    restrictions: {
+      "max_lords_percent" => 0,
+      "max_heroes_percent" => 50,
       "min_core_percent" => 25,
       "allow_lords" => false
-    } 
+    }
   },
-  { 
-    name: "Standard", 
-    points_limit: 2000, 
-    restrictions: { 
-      "max_lords_percent" => 25, 
-      "max_heroes_percent" => 25, 
-      "min_core_percent" => 25 
-    } 
+  {
+    name: "Standard",
+    points_limit: 2000,
+    restrictions: {
+      "max_lords_percent" => 25,
+      "max_heroes_percent" => 25,
+      "min_core_percent" => 25
+    }
   },
-  { 
-    name: "Grand Battle", 
-    points_limit: 3000, 
-    restrictions: { 
-      "max_lords_percent" => 25, 
-      "max_heroes_percent" => 25, 
-      "min_core_percent" => 25 
-    } 
+  {
+    name: "Grand Battle",
+    points_limit: 3000,
+    restrictions: {
+      "max_lords_percent" => 25,
+      "max_heroes_percent" => 25,
+      "min_core_percent" => 25
+    }
   },
-  { 
-    name: "Apocalypse", 
-    points_limit: 5000, 
-    restrictions: { 
-      "max_lords_percent" => 25, 
-      "max_heroes_percent" => 25, 
-      "min_core_percent" => 25 
-    } 
+  {
+    name: "Apocalypse",
+    points_limit: 5000,
+    restrictions: {
+      "max_lords_percent" => 25,
+      "max_heroes_percent" => 25,
+      "min_core_percent" => 25
+    }
   }
 ]
 
@@ -162,7 +162,7 @@ armies_data = [
   { name: "Daemons of Chaos", source: "Hordes of Chaos 2002", description: "The daemonic legions of the Chaos Gods made manifest in the mortal realm." },
   { name: "Skaven", source: "Army Book 2002", description: "Ratmen from the Under-Empire, countless, treacherous, and wielding warpstone technology." },
   { name: "Dark Elves", source: "Army Book 2001", description: "Cruel raiders from Naggaroth, masters of torture, shadow magic, and cold one knights." },
-  
+
   # White Dwarf / Supplemental
   { name: "Dogs of War", source: "White Dwarf / Ravening Hordes", description: "Mercenary regiments from across the Old World, fighting for gold and glory." },
   { name: "Chaos Dwarfs", source: "Ravening Hordes / White Dwarf", description: "Twisted dwarfs who worship Hashut, masters of industry, slavery, and daemonic machinery." },
@@ -243,7 +243,7 @@ special_rules_data = [
   { name: "Righteous Fury", category: "rule", description: "The Priest and his unit Hate all enemies." },
   { name: "Steam Points", category: "rule", description: "Steam Tank generates D3+1 Steam Points per turn. Used for movement, shooting, and attacks." },
   { name: "The End is Nigh!", category: "rule", description: "Flagellants gain +1 Attack for each model killed in the unit (up to maximum of +3)." },
-  
+
   # ============================================
   # CLOSE COMBAT WEAPONS
   # ============================================
@@ -260,7 +260,7 @@ special_rules_data = [
   { name: "Morning Star", category: "weapon", description: "+1 Strength in the first round of combat only." },
   { name: "Two Hand Weapons", category: "weapon", description: "+1 Attack. Cannot use a shield in close combat." },
   { name: "Additional Hand Weapon", category: "weapon", description: "+1 Attack. Cannot use a shield in close combat." },
-  
+
   # ============================================
   # MISSILE WEAPONS
   # ============================================
@@ -281,7 +281,7 @@ special_rules_data = [
   { name: "Throwing Axe", category: "weapon", description: "Range 6\", Strength as user +1. Thrown Weapon." },
   { name: "Javelin", category: "weapon", description: "Range 8\", Strength as user. Thrown Weapon. May be used as spear in close combat." },
   { name: "Sling", category: "weapon", description: "Range 18\", Strength 3. Two shots if stationary within half range." },
-  
+
   # ============================================
   # ARMOUR
   # ============================================
@@ -292,7 +292,7 @@ special_rules_data = [
   { name: "Buckler", category: "armour", description: "Parry: 6+ Ward Save in close combat. Cannot be combined with other shields." },
   { name: "Barding", category: "armour", description: "+1 to cavalry model's Armour Save. Movement reduced to 7\"." },
   { name: "Barded Warhorse", category: "armour", description: "Warhorse with barding. Rider gets +2 to Armour Save total (mount +1, barding +1). Movement 7\"." },
-  
+
   # ============================================
   # COMMON MAGIC WEAPONS
   # ============================================
@@ -303,7 +303,7 @@ special_rules_data = [
   { name: "Enchanted Shield", category: "magic_item", description: "5+ Armour Save. Counts as shield. 10 points." },
   { name: "Sword of Swift Slaying", category: "magic_item", description: "Always Strikes First. 25 points." },
   { name: "Berserker Sword", category: "magic_item", description: "Bearer has Frenzy that cannot be lost. 25 points." },
-  
+
   # ============================================
   # COMMON MAGIC ARMOUR
   # ============================================
@@ -313,7 +313,7 @@ special_rules_data = [
   { name: "Gambler's Armour", category: "magic_item", description: "Heavy armour. 6+ Ward Save. 20 points." },
   { name: "Spellshield", category: "magic_item", description: "Shield. Magic Resistance (1). 20 points." },
   { name: "Shield of Ptolos", category: "magic_item", description: "Shield. 1+ Armour Save against shooting. 25 points." },
-  
+
   # ============================================
   # COMMON TALISMANS
   # ============================================
@@ -328,7 +328,7 @@ special_rules_data = [
   { name: "Dragonbane Gem", category: "magic_item", description: "2+ Ward Save against Flaming Attacks. 5 points." },
   { name: "Pidgeon Plucker Pendant", category: "magic_item", description: "5+ Ward Save against all non-magical attacks. 15 points." },
   { name: "Lucky Trinket", category: "magic_item", description: "6+ Ward Save. 5 points." },
-  
+
   # ============================================
   # COMMON ARCANE ITEMS
   # ============================================
@@ -339,7 +339,7 @@ special_rules_data = [
   { name: "Channeling Staff", category: "magic_item", description: "+1 Power Dice in each Magic Phase. 30 points." },
   { name: "Rod of Power", category: "magic_item", description: "Save up to 3 unused Power Dice for next turn. 35 points." },
   { name: "Wizarding Hat", category: "magic_item", description: "Wearer is a Level 1 Wizard. May not wear other armour. 50 points." },
-  
+
   # ============================================
   # COMMON ENCHANTED ITEMS
   # ============================================
@@ -352,7 +352,7 @@ special_rules_data = [
   { name: "Van Horstman's Speculum", category: "magic_item", description: "In challenges, swap WS, S, T, I, and A with opponent. 40 points." },
   { name: "The Other Trickster's Shard", category: "magic_item", description: "Enemy in base contact must re-roll successful Ward Saves. 15 points." },
   { name: "Ironcurse Icon", category: "magic_item", description: "6+ Ward Save vs War Machine attacks for bearer and unit. 5 points." },
-  
+
   # ============================================
   # COMMON MAGIC STANDARDS
   # ============================================
@@ -368,7 +368,7 @@ special_rules_data = [
   { name: "Scarecrow Banner", category: "magic_item", description: "Fear against Flying creatures. 5 points." },
   { name: "Lichebone Pennant", category: "magic_item", description: "Magic Resistance (1). 15 points." },
   { name: "Standard of Shielding", category: "magic_item", description: "6+ Ward Save vs shooting. 20 points." },
-  
+
   # ============================================
   # WAR MACHINE RULES
   # ============================================
@@ -378,7 +378,7 @@ special_rules_data = [
   { name: "Inaccurate", category: "rule", description: "When rolling to hit, this weapon scatters D6\" in a random direction before resolving hits." },
   { name: "Misfire", category: "rule", description: "On a Misfire result on the Artillery dice, roll on the Misfire table. Results range from destroyed to delayed firing." },
   { name: "Guess Range", category: "rule", description: "Before firing, declare target point. Measure actual distance - if guess is wrong, shot lands short or overshoots." },
-  
+
   # ============================================
   # WIZARD RULES
   # ============================================
@@ -387,7 +387,7 @@ special_rules_data = [
   { name: "Level 2 Wizard", category: "rule", description: "Knows 2 spells. Generates 1 Power Dice per turn." },
   { name: "Level 3 Wizard", category: "rule", description: "Knows 3 spells. Generates 2 Power Dice per turn." },
   { name: "Level 4 Wizard", category: "rule", description: "Knows 4 spells. Generates 2 Power Dice per turn." },
-  
+
   # ============================================
   # ADDITIONAL RULES
   # ============================================
@@ -397,7 +397,7 @@ special_rules_data = [
   { name: "Support Fire", category: "rule", description: "Detachment special rule. If parent unit is charged, detachment may Stand and Shoot at the chargers." },
   { name: "Stupidity", category: "rule", description: "At the start of each turn, take a Leadership test. If failed, unit moves D6\" forward and may do nothing else this turn." },
   { name: "1+ Armour Save", category: "armour", description: "Best possible armour save. Still fails on a natural roll of 1. May be modified by high Strength attacks." },
-  
+
   # ============================================
   # EQUIPMENT & MOUNTS
   # ============================================
@@ -453,7 +453,7 @@ if empire
     "Helstorm Rocket Battery" => "War Machine base",
     "Steam Tank" => "Large oval base"
   }
-  
+
   base_sizes.each do |unit_name, base_size|
     unit = Unit.find_by(army: empire, name: unit_name)
     if unit

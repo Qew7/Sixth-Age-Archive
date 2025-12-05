@@ -6,7 +6,7 @@ class SpecialRule < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   validates :category, inclusion: { in: CATEGORIES }, allow_nil: true
 
-  scope :rules, -> { where(category: [nil, "rule"]) }
+  scope :rules, -> { where(category: [ nil, "rule" ]) }
   scope :weapons, -> { where(category: "weapon") }
   scope :armour, -> { where(category: "armour") }
   scope :magic_items, -> { where(category: "magic_item") }

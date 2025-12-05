@@ -15,14 +15,14 @@ Rails.application.routes.draw do
   root "pages#home"
 
   # Rulebooks
-  resources :rulebooks, only: [:index, :show] do
+  resources :rulebooks, only: [ :index, :show ] do
     member do
       get :download
     end
   end
 
   # Armies (Army Books)
-  resources :armies, only: [:index, :show] do
+  resources :armies, only: [ :index, :show ] do
     member do
       get :download
     end
@@ -40,10 +40,10 @@ Rails.application.routes.draw do
 
   # API for dynamic unit loading
   namespace :api do
-    resources :units, only: [:index, :show]
-    resources :special_rules, only: [:index, :show]
-    resources :armies, only: [:index] do
-      resources :units, only: [:index]
+    resources :units, only: [ :index, :show ]
+    resources :special_rules, only: [ :index, :show ]
+    resources :armies, only: [ :index ] do
+      resources :units, only: [ :index ]
     end
   end
 end

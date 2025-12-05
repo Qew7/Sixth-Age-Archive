@@ -94,7 +94,7 @@ BEASTMEN_SPECIAL_RULES = [
 
 def seed_beastmen
   ArmySeeder.seed_army("Beastmen", BEASTMEN_UNITS)
-  
+
   BEASTMEN_SPECIAL_RULES.each do |rule_data|
     rule = SpecialRule.find_or_initialize_by(name: rule_data[:name])
     rule.description = rule_data[:description]
@@ -102,4 +102,3 @@ def seed_beastmen
     rule.save!
   end
 end
-

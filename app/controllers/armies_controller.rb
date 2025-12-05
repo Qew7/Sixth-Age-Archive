@@ -13,7 +13,7 @@ class ArmiesController < ApplicationController
 
   def download
     @army = Army.find(params[:id])
-    
+
     if @army.pdf.attached?
       redirect_to rails_blob_path(@army.pdf, disposition: "attachment")
     else

@@ -93,7 +93,7 @@ WARRIORS_OF_CHAOS_SPECIAL_RULES = [
 
 def seed_warriors_of_chaos
   ArmySeeder.seed_army("Warriors of Chaos", WARRIORS_OF_CHAOS_UNITS)
-  
+
   WARRIORS_OF_CHAOS_SPECIAL_RULES.each do |rule_data|
     rule = SpecialRule.find_or_initialize_by(name: rule_data[:name])
     rule.description = rule_data[:description]
@@ -101,4 +101,3 @@ def seed_warriors_of_chaos
     rule.save!
   end
 end
-

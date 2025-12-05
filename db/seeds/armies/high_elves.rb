@@ -82,7 +82,7 @@ HIGH_ELF_SPECIAL_RULES = [
 
 def seed_high_elves
   ArmySeeder.seed_army("High Elves", HIGH_ELVES_UNITS)
-  
+
   HIGH_ELF_SPECIAL_RULES.each do |rule_data|
     rule = SpecialRule.find_or_initialize_by(name: rule_data[:name])
     rule.description = rule_data[:description]
@@ -90,4 +90,3 @@ def seed_high_elves
     rule.save!
   end
 end
-

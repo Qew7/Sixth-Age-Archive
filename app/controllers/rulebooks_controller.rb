@@ -11,7 +11,7 @@ class RulebooksController < ApplicationController
 
   def download
     @rulebook = Rulebook.find(params[:id])
-    
+
     if @rulebook.pdf.attached?
       redirect_to rails_blob_path(@rulebook.pdf, disposition: "attachment")
     else
