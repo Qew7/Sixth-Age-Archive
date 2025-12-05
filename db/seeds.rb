@@ -178,110 +178,30 @@ armies_data.each do |army_data|
   army.save!
 end
 
-# Sample Units for Empire
-puts "Creating sample units for The Empire..."
-empire = Army.find_by(name: "The Empire")
-
-if empire
-  empire_units = [
-    # Lords
-    { name: "General of the Empire", unit_type: "lord", base_cost: 65, min_size: 1, max_size: 1,
-      stats: { "M" => 4, "WS" => 5, "BS" => 5, "S" => 4, "T" => 4, "W" => 3, "I" => 5, "A" => 3, "Ld" => 9 },
-      special_rules: "May be mounted on Warhorse, Pegasus, or Griffon" },
-    { name: "Grand Master", unit_type: "lord", base_cost: 145, min_size: 1, max_size: 1,
-      stats: { "M" => 4, "WS" => 6, "BS" => 5, "S" => 4, "T" => 4, "W" => 3, "I" => 6, "A" => 4, "Ld" => 9 },
-      special_rules: "Inner Circle, Knightly Orders, must lead a unit of Knights" },
-    { name: "Wizard Lord", unit_type: "lord", base_cost: 165, min_size: 1, max_size: 1,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 3, "I" => 3, "A" => 1, "Ld" => 8 },
-      special_rules: "Level 3 Wizard, may be upgraded to Level 4 (+35 pts)" },
-    { name: "Arch Lector", unit_type: "lord", base_cost: 155, min_size: 1, max_size: 1,
-      stats: { "M" => 4, "WS" => 4, "BS" => 3, "S" => 4, "T" => 4, "W" => 3, "I" => 4, "A" => 2, "Ld" => 9 },
-      special_rules: "Prayers of Sigmar, Righteous Fury, Hatred, may ride War Altar" },
-
-    # Heroes
-    { name: "Captain of the Empire", unit_type: "hero", base_cost: 50, min_size: 1, max_size: 1,
-      stats: { "M" => 4, "WS" => 5, "BS" => 5, "S" => 4, "T" => 4, "W" => 2, "I" => 5, "A" => 2, "Ld" => 8 },
-      special_rules: "May carry Battle Standard (+25 pts)" },
-    { name: "Battle Wizard", unit_type: "hero", base_cost: 65, min_size: 1, max_size: 1,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 2, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "Level 1 Wizard, may be upgraded to Level 2 (+35 pts)" },
-    { name: "Warrior Priest", unit_type: "hero", base_cost: 90, min_size: 1, max_size: 1,
-      stats: { "M" => 4, "WS" => 4, "BS" => 3, "S" => 4, "T" => 4, "W" => 2, "I" => 4, "A" => 2, "Ld" => 8 },
-      special_rules: "Prayers of Sigmar, Righteous Fury, Hatred" },
-    { name: "Engineer", unit_type: "hero", base_cost: 65, min_size: 1, max_size: 1,
-      stats: { "M" => 4, "WS" => 3, "BS" => 4, "S" => 3, "T" => 3, "W" => 2, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "May join War Machines, re-roll one Artillery dice per turn" },
-
-    # Core
-    { name: "State Troops (Swordsmen)", unit_type: "core", base_cost: 50, cost_per_model: 5, min_size: 10, max_size: 30,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "May have Detachments" },
-    { name: "State Troops (Halberdiers)", unit_type: "core", base_cost: 50, cost_per_model: 5, min_size: 10, max_size: 30,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "Halberds, May have Detachments" },
-    { name: "State Troops (Spearmen)", unit_type: "core", base_cost: 45, cost_per_model: 4, min_size: 10, max_size: 30,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "Spears, May have Detachments" },
-    { name: "Handgunners", unit_type: "core", base_cost: 80, cost_per_model: 8, min_size: 10, max_size: 20,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "Handguns (24\", S4, Move or Fire, Armour Piercing)" },
-    { name: "Crossbowmen", unit_type: "core", base_cost: 80, cost_per_model: 8, min_size: 10, max_size: 20,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "Crossbows (30\", S4)" },
-    { name: "Free Company", unit_type: "core", base_cost: 50, cost_per_model: 5, min_size: 10, max_size: 25,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "Two Hand Weapons, Skirmishers" },
-    { name: "Huntsmen", unit_type: "core", base_cost: 80, cost_per_model: 8, min_size: 10, max_size: 20,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "Bows, Scouts, Skirmishers" },
-    { name: "Knights", unit_type: "core", base_cost: 110, cost_per_model: 22, min_size: 5, max_size: 15,
-      stats: { "M" => 4, "WS" => 4, "BS" => 3, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 8 },
-      special_rules: "Heavy Armour, Shield, Lance, Barded Warhorse" },
-
-    # Special
-    { name: "Greatswords", unit_type: "special", base_cost: 100, cost_per_model: 10, min_size: 10, max_size: 30,
-      stats: { "M" => 4, "WS" => 4, "BS" => 3, "S" => 4, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 8 },
-      special_rules: "Great Weapons, Stubborn, May have Detachments" },
-    { name: "Pistoliers", unit_type: "special", base_cost: 95, cost_per_model: 19, min_size: 5, max_size: 10,
-      stats: { "M" => 4, "WS" => 3, "BS" => 3, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 7 },
-      special_rules: "Brace of Pistols, Fast Cavalry" },
-    { name: "Outriders", unit_type: "special", base_cost: 105, cost_per_model: 21, min_size: 5, max_size: 10,
-      stats: { "M" => 4, "WS" => 4, "BS" => 4, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 1, "Ld" => 8 },
-      special_rules: "Repeater Handguns, Fast Cavalry" },
-    { name: "Great Cannon", unit_type: "special", base_cost: 100, min_size: 1, max_size: 1,
-      stats: { "M" => "-", "WS" => "-", "BS" => "-", "S" => 7, "T" => 7, "W" => 3, "I" => "-", "A" => "-", "Ld" => "-" },
-      special_rules: "War Machine, Cannon rules, 3 crew" },
-    { name: "Mortar", unit_type: "special", base_cost: 75, min_size: 1, max_size: 1,
-      stats: { "M" => "-", "WS" => "-", "BS" => "-", "S" => 3, "T" => 7, "W" => 3, "I" => "-", "A" => "-", "Ld" => "-" },
-      special_rules: "War Machine, Stone Thrower, Guess range, 3 crew" },
-
-    # Rare
-    { name: "Helblaster Volley Gun", unit_type: "rare", base_cost: 110, min_size: 1, max_size: 1,
-      stats: { "M" => "-", "WS" => "-", "BS" => "-", "S" => 5, "T" => 7, "W" => 3, "I" => "-", "A" => "-", "Ld" => "-" },
-      special_rules: "War Machine, D6 shots per barrel, may Misfire, 3 crew" },
-    { name: "Helstorm Rocket Battery", unit_type: "rare", base_cost: 115, min_size: 1, max_size: 1,
-      stats: { "M" => "-", "WS" => "-", "BS" => "-", "S" => 5, "T" => 7, "W" => 3, "I" => "-", "A" => "-", "Ld" => "-" },
-      special_rules: "War Machine, Stone Thrower, Inaccurate, 3 crew" },
-    { name: "Steam Tank", unit_type: "rare", base_cost: 300, min_size: 1, max_size: 1,
-      stats: { "M" => "Special", "WS" => "-", "BS" => "-", "S" => 6, "T" => 6, "W" => 10, "I" => "-", "A" => "D6", "Ld" => "-" },
-      special_rules: "Unbreakable, Steam Points, Cannon, 1+ Armour Save" },
-    { name: "Flagellants", unit_type: "rare", base_cost: 100, cost_per_model: 10, min_size: 10, max_size: 30,
-      stats: { "M" => 4, "WS" => 3, "BS" => 2, "S" => 3, "T" => 3, "W" => 1, "I" => 3, "A" => 2, "Ld" => 10 },
-      special_rules: "Unbreakable, Frenzy, Flails, The End is Nigh!" }
-  ]
-
-  empire_units.each do |unit_data|
-    unit = Unit.find_or_initialize_by(army: empire, name: unit_data[:name])
-    unit.unit_type = unit_data[:unit_type]
-    unit.base_cost = unit_data[:base_cost]
-    unit.cost_per_model = unit_data[:cost_per_model]
-    unit.min_size = unit_data[:min_size]
-    unit.max_size = unit_data[:max_size]
-    unit.stats = unit_data[:stats]
-    unit.special_rules = unit_data[:special_rules]
-    unit.save!
-  end
+# Load army seed files
+puts "Loading army data from seed files..."
+Dir[Rails.root.join("db/seeds/armies/_base.rb")].each { |f| require f }
+Dir[Rails.root.join("db/seeds/armies/*.rb")].sort.each do |file|
+  next if file.include?("_base.rb")
+  require file
 end
+
+# Seed all armies
+puts "Creating units for all armies..."
+seed_empire if defined?(seed_empire)
+seed_orcs_and_goblins if defined?(seed_orcs_and_goblins)
+seed_high_elves if defined?(seed_high_elves)
+seed_dark_elves if defined?(seed_dark_elves)
+seed_wood_elves if defined?(seed_wood_elves)
+seed_dwarfs if defined?(seed_dwarfs)
+seed_bretonnia if defined?(seed_bretonnia)
+seed_vampire_counts if defined?(seed_vampire_counts)
+seed_tomb_kings if defined?(seed_tomb_kings)
+seed_skaven if defined?(seed_skaven)
+seed_lizardmen if defined?(seed_lizardmen)
+seed_warriors_of_chaos if defined?(seed_warriors_of_chaos)
+seed_beastmen if defined?(seed_beastmen)
+seed_ogre_kingdoms if defined?(seed_ogre_kingdoms)
 
 # Special Rules, Weapons, Armour, Magic Items
 puts "Creating special rules, weapons, armour, and magic items..."
