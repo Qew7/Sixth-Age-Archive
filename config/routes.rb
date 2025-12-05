@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
+  # Locale switching
+  patch "locale/:locale", to: "locales#update", as: :locale
+
   # Main pages
   root "pages#home"
 
@@ -38,6 +41,7 @@ Rails.application.routes.draw do
   # API for dynamic unit loading
   namespace :api do
     resources :units, only: [:index, :show]
+    resources :special_rules, only: [:index, :show]
     resources :armies, only: [:index] do
       resources :units, only: [:index]
     end

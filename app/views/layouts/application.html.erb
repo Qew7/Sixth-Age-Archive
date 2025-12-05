@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html class="h-full">
+<html class="h-full" lang="<%= I18n.locale %>">
   <head>
-    <title><%= content_for(:title) || "Sixth Age Archive" %> | Warhammer Fantasy 6th Edition</title>
+    <title><%= content_for(:title) || t('site.title') %> | <%= t('site.subtitle') %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="description" content="Complete archive of Warhammer Fantasy 6th Edition rules, army books, and army builder">
+    <meta name="description" content="<%= t('site.description') %>">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -45,16 +45,25 @@
               </svg>
             </div>
             <div>
-              <h1 class="font-cinzel text-lg font-bold text-amber-100 group-hover:text-amber-300 transition-colors">Sixth Age Archive</h1>
-              <p class="text-xs text-stone-500 -mt-0.5">Warhammer Fantasy 6th Edition</p>
+              <h1 class="font-cinzel text-lg font-bold text-amber-100 group-hover:text-amber-300 transition-colors"><%= t('site.title') %></h1>
+              <p class="text-xs text-stone-500 -mt-0.5"><%= t('site.subtitle') %></p>
             </div>
           <% end %>
 
           <%# Navigation Links %>
           <div class="hidden md:flex items-center gap-1">
-            <%= link_to "Rules", rulebooks_path, class: "px-4 py-2 text-stone-300 hover:text-amber-400 font-medium transition-colors" %>
-            <%= link_to "Armies", armies_path, class: "px-4 py-2 text-stone-300 hover:text-amber-400 font-medium transition-colors" %>
-            <%= link_to "Army Builder", army_lists_path, class: "px-4 py-2 text-stone-300 hover:text-amber-400 font-medium transition-colors" %>
+            <%= link_to t('nav.rules'), rulebooks_path, class: "px-4 py-2 text-stone-300 hover:text-amber-400 font-medium transition-colors" %>
+            <%= link_to t('nav.armies'), armies_path, class: "px-4 py-2 text-stone-300 hover:text-amber-400 font-medium transition-colors" %>
+            <%= link_to t('nav.army_builder'), army_lists_path, class: "px-4 py-2 text-stone-300 hover:text-amber-400 font-medium transition-colors" %>
+            
+            <%# Language switcher %>
+            <div class="lang-switcher ml-4 pl-4 border-l border-stone-700">
+              <% available_locales.each do |code, name| %>
+                <%= button_to locale_path(locale: code), method: :patch, class: "lang-btn #{I18n.locale == code ? 'active' : ''}", data: { turbo: false } do %>
+                  <%= code.to_s.upcase %>
+                <% end %>
+              <% end %>
+            </div>
           </div>
 
           <%# Mobile menu button %>
@@ -69,9 +78,17 @@
       <%# Mobile menu %>
       <div class="md:hidden hidden" id="mobile-menu">
         <div class="px-4 py-3 space-y-1 bg-stone-900 border-t border-stone-800">
-          <%= link_to "Rules", rulebooks_path, class: "block px-3 py-2 text-stone-300 hover:text-amber-400 hover:bg-stone-800 rounded" %>
-          <%= link_to "Armies", armies_path, class: "block px-3 py-2 text-stone-300 hover:text-amber-400 hover:bg-stone-800 rounded" %>
-          <%= link_to "Army Builder", army_lists_path, class: "block px-3 py-2 text-stone-300 hover:text-amber-400 hover:bg-stone-800 rounded" %>
+          <%= link_to t('nav.rules'), rulebooks_path, class: "block px-3 py-2 text-stone-300 hover:text-amber-400 hover:bg-stone-800 rounded" %>
+          <%= link_to t('nav.armies'), armies_path, class: "block px-3 py-2 text-stone-300 hover:text-amber-400 hover:bg-stone-800 rounded" %>
+          <%= link_to t('nav.army_builder'), army_lists_path, class: "block px-3 py-2 text-stone-300 hover:text-amber-400 hover:bg-stone-800 rounded" %>
+          
+          <div class="pt-3 mt-3 border-t border-stone-800 flex gap-2">
+            <% available_locales.each do |code, name| %>
+              <%= button_to locale_path(locale: code), method: :patch, class: "lang-btn flex-1 text-center #{I18n.locale == code ? 'active' : ''}", data: { turbo: false } do %>
+                <%= name %>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </nav>
@@ -98,30 +115,29 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 class="font-cinzel text-amber-400 font-semibold mb-4">Sixth Age Archive</h3>
+            <h3 class="font-cinzel text-amber-400 font-semibold mb-4"><%= t('site.title') %></h3>
             <p class="text-stone-500 text-sm leading-relaxed">
-              A community resource for Warhammer Fantasy 6th Edition. 
-              All rules and army lists from official sources.
+              <%= t('site.description') %>
             </p>
           </div>
           <div>
-            <h3 class="font-cinzel text-amber-400 font-semibold mb-4">Resources</h3>
+            <h3 class="font-cinzel text-amber-400 font-semibold mb-4"><%= t('footer.resources') %></h3>
             <ul class="space-y-2 text-sm">
-              <li><%= link_to "Core Rules", rulebooks_path, class: "text-stone-400 hover:text-amber-400 transition-colors" %></li>
-              <li><%= link_to "Army Books", armies_path, class: "text-stone-400 hover:text-amber-400 transition-colors" %></li>
-              <li><%= link_to "Army Builder", army_lists_path, class: "text-stone-400 hover:text-amber-400 transition-colors" %></li>
+              <li><%= link_to t('footer.core_rules'), rulebooks_path, class: "text-stone-400 hover:text-amber-400 transition-colors" %></li>
+              <li><%= link_to t('footer.army_books'), armies_path, class: "text-stone-400 hover:text-amber-400 transition-colors" %></li>
+              <li><%= link_to t('nav.army_builder'), army_lists_path, class: "text-stone-400 hover:text-amber-400 transition-colors" %></li>
             </ul>
           </div>
           <div>
-            <h3 class="font-cinzel text-amber-400 font-semibold mb-4">Community</h3>
+            <h3 class="font-cinzel text-amber-400 font-semibold mb-4"><%= t('footer.community') %></h3>
             <ul class="space-y-2 text-sm">
-              <li><a href="https://6th.whfb.app/" target="_blank" class="text-stone-400 hover:text-amber-400 transition-colors">6th Edition Rules Index</a></li>
+              <li><a href="https://6th.whfb.app/" target="_blank" class="text-stone-400 hover:text-amber-400 transition-colors"><%= t('footer.rules_index') %></a></li>
             </ul>
           </div>
         </div>
         <div class="mt-8 pt-8 border-t border-stone-800 text-center text-stone-600 text-sm">
-          <p>This is a fan project. Warhammer Fantasy is a trademark of Games Workshop Ltd.</p>
-          <p class="mt-1">This site is not affiliated with Games Workshop.</p>
+          <p><%= t('footer.disclaimer') %></p>
+          <p class="mt-1"><%= t('footer.not_affiliated') %></p>
         </div>
       </div>
     </footer>

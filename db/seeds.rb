@@ -283,8 +283,114 @@ if empire
   end
 end
 
+# Special Rules with descriptions
+puts "Creating special rules..."
+special_rules_data = [
+  # Universal Special Rules
+  { name: "Stubborn", description: "Unit always uses its unmodified Leadership for Break tests, regardless of combat result modifiers." },
+  { name: "Unbreakable", description: "Unit never takes Break tests and will never flee. If defeated in combat, the unit loses 1 additional wound for each point by which they lost." },
+  { name: "Frenzy", description: "Unit must always pursue fleeing enemies. Gains +1 Attack but cannot choose to flee as charge reaction. Lost if unit loses a round of combat." },
+  { name: "Hatred", description: "May re-roll all failed To Hit rolls in the first round of any combat." },
+  { name: "Fear", description: "Enemy units must pass a Leadership test to charge. If defeated in combat by Fear-causing unit, enemy automatically flees." },
+  { name: "Terror", description: "Causes Fear. Additionally, enemy units within 6\" must pass a Leadership test at the start of each turn or flee." },
+  { name: "Immune to Psychology", description: "Unit is not affected by Panic, Fear, or Terror. May still flee voluntarily and from lost combats." },
+  { name: "Killing Blow", description: "Any To Wound roll of 6 in close combat automatically kills the model (no saves allowed except Ward Saves). Does not work against models with more than 3 Wounds." },
+  { name: "Regeneration", description: "At the end of each phase, roll a D6 for each wound suffered. On 4+, the wound is regenerated. Does not work against fire or flaming attacks." },
+  { name: "Poisoned Attacks", description: "Any To Hit roll of 6 automatically wounds (no need to roll To Wound). Armour saves apply as normal." },
+  { name: "Flammable", description: "Suffers double wounds from flaming attacks. Regeneration does not work against flaming attacks." },
+  { name: "Magic Resistance", description: "Unit gains additional dice to dispel spells targeting them. Magic Resistance (1) = +1 dice, (2) = +2 dice, etc." },
+  { name: "Ward Save", description: "A special save that may be taken in addition to armour saves. Ward Saves are not modified by Strength or magical attacks." },
+  
+  # Movement Special Rules
+  { name: "Fly", description: "Model can move up to 20\" ignoring terrain and models. Cannot march. When charging, use ground movement rate instead." },
+  { name: "Skirmishers", description: "360° line of sight, -1 to hit with missile weapons. May shoot in any direction. Free reform. No rank bonus." },
+  { name: "Fast Cavalry", description: "May reform freely during move. May shoot even after marching. Counts as Skirmishers when fleeing." },
+  { name: "Scouts", description: "May deploy after both armies are set up, anywhere on the table more than 10\" from enemy models." },
+  { name: "Ambushers", description: "May be kept off the table and enter from any table edge from turn 2 onwards on a 4+." },
+  
+  # Combat Special Rules
+  { name: "Always Strikes First", description: "Model always strikes first in close combat, regardless of Initiative or charging. If both models have this rule, use Initiative as normal." },
+  { name: "Always Strikes Last", description: "Model always strikes last in close combat, regardless of Initiative." },
+  { name: "Great Weapon", description: "+2 Strength, requires two hands, Always Strikes Last." },
+  { name: "Halberd", description: "+1 Strength, requires two hands." },
+  { name: "Spears", description: "Infantry may fight in 2 ranks. Cavalry gains +1 Strength when charging." },
+  { name: "Lance", description: "+2 Strength when charging. Only usable by cavalry." },
+  { name: "Armour Piercing", description: "Enemy armour save is reduced by an additional -1." },
+  { name: "Flail", description: "+2 Strength in first round of combat only." },
+  
+  # Shooting Special Rules
+  { name: "Move or Fire", description: "May not shoot if the unit moved this turn." },
+  { name: "Multiple Shots", description: "May fire multiple shots, but all shots suffer -1 To Hit." },
+  { name: "Volley Fire", description: "Ranks behind the first may shoot if the unit did not move." },
+  
+  # Unit Type Rules
+  { name: "Large Target", description: "May always be seen and shot at. Does not block line of sight for other Large Targets." },
+  { name: "War Machine", description: "Follows special rules for war machines. Requires crew to operate." },
+  { name: "Chariot", description: "Follows special chariot rules. Impact hits on charge. Crew may fight in combat." },
+  { name: "Monster", description: "Follows monster rules. Uses Monster Reaction table when rider is killed." },
+  
+  # Empire Specific
+  { name: "Detachments", description: "State Troops may have up to 2 Detachments attached. Detachments may Counter-Charge or Support Fire." },
+  { name: "Inner Circle", description: "Elite knights of the Knightly Orders. +1 WS and Strength." },
+  { name: "Prayers of Sigmar", description: "May invoke one Prayer per turn. Prayers affect the Priest and his unit." },
+  { name: "Righteous Fury", description: "The Priest and his unit Hate all enemies." },
+  { name: "Steam Points", description: "Steam Tank generates D3+1 Steam Points per turn. Used for movement, shooting, and attacks." },
+  { name: "The End is Nigh!", description: "Flagellants gain +1 Attack for each model killed in the unit (up to maximum of +3)." }
+]
+
+special_rules_data.each do |rule_data|
+  SpecialRule.find_or_create_by!(name: rule_data[:name]) do |rule|
+    rule.description = rule_data[:description]
+  end
+end
+
+# Update Empire units with base sizes
+puts "Updating unit base sizes..."
+empire = Army.find_by(name: "The Empire")
+if empire
+  base_sizes = {
+    # Characters (usually 20x20 or 25x25 on foot)
+    "General of the Empire" => "20x20mm (on foot) / 25x50mm (mounted)",
+    "Grand Master" => "25x50mm (mounted)",
+    "Wizard Lord" => "20x20mm (on foot)",
+    "Arch Lector" => "20x20mm (on foot) / Chariot base (War Altar)",
+    "Captain of the Empire" => "20x20mm (on foot) / 25x50mm (mounted)",
+    "Battle Wizard" => "20x20mm",
+    "Warrior Priest" => "20x20mm (on foot) / 25x50mm (mounted)",
+    "Engineer" => "20x20mm",
+    # Infantry
+    "State Troops (Swordsmen)" => "20x20mm",
+    "State Troops (Halberdiers)" => "20x20mm",
+    "State Troops (Spearmen)" => "20x20mm",
+    "Handgunners" => "20x20mm",
+    "Crossbowmen" => "20x20mm",
+    "Free Company" => "20x20mm",
+    "Huntsmen" => "20x20mm",
+    "Greatswords" => "20x20mm",
+    "Flagellants" => "20x20mm",
+    # Cavalry
+    "Knights" => "25x50mm",
+    "Pistoliers" => "25x50mm",
+    "Outriders" => "25x50mm",
+    # War Machines
+    "Great Cannon" => "War Machine base",
+    "Mortar" => "War Machine base",
+    "Helblaster Volley Gun" => "War Machine base",
+    "Helstorm Rocket Battery" => "War Machine base",
+    "Steam Tank" => "Large oval base"
+  }
+  
+  base_sizes.each do |unit_name, base_size|
+    unit = Unit.find_by(army: empire, name: unit_name)
+    if unit
+      unit.update!(base_size: base_size)
+    end
+  end
+end
+
 puts "Seed complete! Created:"
 puts "  - #{GameFormat.count} game formats"
 puts "  - #{Rulebook.count} rulebooks"
 puts "  - #{Army.count} armies"
 puts "  - #{Unit.count} units"
+puts "  - #{SpecialRule.count} special rules"

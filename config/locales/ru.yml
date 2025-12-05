@@ -1,0 +1,158 @@
+ru:
+  site:
+    title: "Архив Шестой Эпохи"
+    subtitle: "Warhammer Fantasy 6-я редакция"
+    description: "Полный архив правил, армибуков и армилистов для величайшей редакции Warhammer Fantasy Battles."
+    
+  nav:
+    rules: "Правила"
+    armies: "Армии"
+    army_builder: "Армибилдер"
+    
+  home:
+    hero_title: "Архив Шестой Эпохи"
+    hero_description: "Полный архив правил, армибуков и армилистов для величайшей редакции Warhammer Fantasy Battles. Скачивай PDF и собирай свои армии."
+    browse_rules: "Смотреть правила"
+    army_books: "Армибуки"
+    build_army_list: "Собрать армию"
+    rulebooks: "Рулбуков"
+    armies: "Армий"
+    glory: "Славы"
+    everything_you_need: "Всё что нужно"
+    all_official: "Все официальные материалы 6-й редакции в одном месте"
+    core_rules:
+      title: "Основные правила"
+      description: "Полный рулбук, FAQ, эррата и все дополнения включая Storm of Chaos, правила осады и кампании."
+    army_books_section:
+      title: "Армибуки"
+      description: "Все официальные армибуки плюс списки из White Dwarf: Кислев, Хаос Дварфы, Псы Войны, Пираты-Зомби и другие."
+    army_builder_section:
+      title: "Армибилдер"
+      description: "Собирай и проверяй армилисты под разные лимиты очков. Автоматическая проверка композиции и экспорт в PDF."
+    choose_army: "Выбери свою армию"
+    choose_army_subtitle: "От благородной Империи до дикарей-орков"
+    view_all_armies: "Все армии →"
+    ready_to_war: "Готов к войне?"
+    ready_to_war_description: "Начни собирать свой армилист прямо сейчас. Выбери фракцию, воинов и готовься к битве в Старом Свете."
+    create_army_list: "Создать армилист"
+    
+  rules:
+    title: "Правила и дополнения"
+    description: "Полная коллекция рулбуков, FAQ, эрраты и дополнений 6-й редакции. Скачивай официальные PDF."
+    categories:
+      core: "Основные правила"
+      supplement: "Дополнения"
+      faq: "FAQ"
+      errata: "Эррата и поправки"
+    download_pdf: "Скачать PDF"
+    pdf_coming_soon: "PDF скоро будет"
+    no_rulebooks: "Пока нет рулбуков"
+    no_rulebooks_description: "Рулбуки будут добавлены позже. Заходи ещё!"
+    
+  armies:
+    title: "Армибуки"
+    description: "Все официальные армибуки 6-й редакции и дополнительные армилисты из White Dwarf и кампаний."
+    sources:
+      army_book: "Официальные армибуки"
+      storm_of_chaos: "Storm of Chaos"
+      white_dwarf: "Списки из White Dwarf"
+      ravening_hordes: "Ravening Hordes"
+    units_count:
+      one: "%{count} юнит"
+      few: "%{count} юнита"
+      many: "%{count} юнитов"
+      other: "%{count} юнитов"
+    pdf_available: "PDF доступен"
+    no_armies: "Пока нет армий"
+    no_armies_description: "Армибуки будут добавлены позже. Заходи ещё!"
+    build_army_list: "Собрать армию"
+    download_pdf: "Скачать PDF"
+    no_units: "Пока нет данных о юнитах"
+    no_units_description: "Профили юнитов для этой армии будут добавлены позже."
+    
+  army_lists:
+    title: "Армибилдер"
+    description: "Создавай, редактируй и экспортируй свои армилисты для 6-й редакции."
+    new_army_list: "Новый армилист"
+    create_army_list: "Создать армилист"
+    edit_army_list: "Редактировать армилист"
+    no_lists: "Пока нет армилистов"
+    no_lists_description: "Создай свой первый армилист и начни планировать сражения в Старом Свете."
+    create_first: "Создать первый список"
+    updated_ago: "Обновлён %{time} назад"
+    points: "очков"
+    pts: "очк."
+    pts_remaining: "осталось %{count} очк."
+    pts_over: "превышено на %{count} очк.!"
+    add_units: "Добавить юниты"
+    no_units_available: "Нет доступных юнитов для этой армии."
+    no_units_added: "Юниты типа %{type} ещё не добавлены"
+    composition_errors: "Ошибки композиции"
+    composition_valid: "Композиция армии корректна"
+    view: "Просмотр"
+    edit: "Редактировать"
+    export_pdf: "Экспорт PDF"
+    cancel: "Отмена"
+    name: "Название"
+    army: "Армия"
+    game_format: "Формат игры"
+    notes: "Заметки"
+    select_army: "Выбери армию..."
+    select_format: "Выбери формат..."
+    no_units_yet: "Пока нет юнитов"
+    start_building: "Начни собирать армию, добавляя юниты."
+    points_breakdown:
+      lords: "Лорды"
+      heroes: "Герои"
+      core: "Кор"
+      special: "Спешл"
+      rare: "Рэйр"
+      min: "мин. %{value}"
+      max: "макс. %{value}"
+      
+  units:
+    points: "очк."
+    pts_per_model: "очк./модель"
+    model:
+      one: "модель"
+      few: "модели"
+      many: "моделей"
+      other: "моделей"
+    models: "моделей"
+    base: "База"
+    special_rules: "Спец. правила"
+    unit_types:
+      lord: "Лорд"
+      hero: "Герой"
+      core: "Кор"
+      special: "Спешл"
+      rare: "Рэйр"
+      
+  game_formats:
+    small_warband: "Малый Варбанд"
+    large_warband: "Большой Варбанд"
+    border_patrol: "Пограничный Патруль"
+    skirmish: "Стычка"
+    standard: "Стандарт"
+    grand_battle: "Большая Битва"
+    apocalypse: "Апокалипсис"
+    
+  footer:
+    resources: "Ресурсы"
+    core_rules: "Основные правила"
+    army_books: "Армибуки"
+    community: "Сообщество"
+    rules_index: "Индекс правил 6-й редакции"
+    disclaimer: "Это фанатский проект. Warhammer Fantasy — торговая марка Games Workshop Ltd."
+    not_affiliated: "Сайт не аффилирован с Games Workshop."
+    
+  common:
+    download: "Скачать"
+    view: "Просмотр"
+    edit: "Редактировать"
+    delete: "Удалить"
+    save: "Сохранить"
+    cancel: "Отмена"
+    back: "Назад"
+    search: "Поиск"
+

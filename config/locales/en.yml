@@ -1,31 +1,153 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  site:
+    title: "Sixth Age Archive"
+    subtitle: "Warhammer Fantasy 6th Edition"
+    description: "Complete archive of rules, army books, and army lists for the greatest edition of Warhammer Fantasy Battles."
+    
+  nav:
+    rules: "Rules"
+    armies: "Armies"
+    army_builder: "Army Builder"
+    
+  home:
+    hero_title: "Sixth Age Archive"
+    hero_description: "Complete archive of rules, army books, and army lists for the greatest edition of Warhammer Fantasy Battles. Download PDFs and build your armies."
+    browse_rules: "Browse Rules"
+    army_books: "Army Books"
+    build_army_list: "Build Army List"
+    rulebooks: "Rulebooks"
+    armies: "Armies"
+    glory: "Glory"
+    everything_you_need: "Everything You Need"
+    all_official: "All official 6th Edition materials in one place"
+    core_rules:
+      title: "Core Rules"
+      description: "Complete rulebook, FAQs, errata, and all supplements including Storm of Chaos, Siege rules, and campaign systems."
+    army_books_section:
+      title: "Army Books"
+      description: "All official army books plus White Dwarf lists: Kislev, Chaos Dwarfs, Dogs of War, Zombie Pirates, and more."
+    army_builder_section:
+      title: "Army Builder"
+      description: "Build and validate army lists for different point limits. Automatic composition checks and PDF export."
+    choose_army: "Choose Your Army"
+    choose_army_subtitle: "From noble Empire to savage Orcs"
+    view_all_armies: "View All Armies →"
+    ready_to_war: "Ready to Wage War?"
+    ready_to_war_description: "Start building your army list now. Select your faction, choose your warriors, and prepare for battle in the Old World."
+    create_army_list: "Create Army List"
+    
+  rules:
+    title: "Rules & Supplements"
+    description: "Complete collection of 6th Edition rulebooks, FAQs, errata, and supplements. Download official PDFs for all your gaming needs."
+    categories:
+      core: "Core Rulebooks"
+      supplement: "Supplements"
+      faq: "FAQs"
+      errata: "Errata & Amendments"
+    download_pdf: "Download PDF"
+    pdf_coming_soon: "PDF coming soon"
+    no_rulebooks: "No rulebooks yet"
+    no_rulebooks_description: "Rulebooks will be added soon. Check back later!"
+    
+  armies:
+    title: "Army Books"
+    description: "All official 6th Edition army books and supplemental army lists from White Dwarf and campaign supplements."
+    sources:
+      army_book: "Official Army Books"
+      storm_of_chaos: "Storm of Chaos"
+      white_dwarf: "White Dwarf Lists"
+      ravening_hordes: "Ravening Hordes"
+    units_count:
+      one: "%{count} unit"
+      other: "%{count} units"
+    pdf_available: "PDF Available"
+    no_armies: "No armies yet"
+    no_armies_description: "Army books will be added soon. Check back later!"
+    build_army_list: "Build Army List"
+    download_pdf: "Download PDF"
+    no_units: "No units data yet"
+    no_units_description: "Unit profiles for this army will be added soon."
+    
+  army_lists:
+    title: "Army Builder"
+    description: "Create, manage, and export your army lists for 6th Edition."
+    new_army_list: "New Army List"
+    create_army_list: "Create Army List"
+    edit_army_list: "Edit Army List"
+    no_lists: "No Army Lists Yet"
+    no_lists_description: "Create your first army list to start planning your battles in the Old World."
+    create_first: "Create Your First List"
+    updated_ago: "Updated %{time} ago"
+    points: "points"
+    pts: "pts"
+    pts_remaining: "%{count} pts remaining"
+    pts_over: "%{count} pts over!"
+    add_units: "Add Units"
+    no_units_available: "No units available for this army."
+    no_units_added: "No %{type} units added yet"
+    composition_errors: "Composition Errors"
+    composition_valid: "Army composition is valid"
+    view: "View"
+    edit: "Edit"
+    export_pdf: "Export PDF"
+    cancel: "Cancel"
+    name: "Name"
+    army: "Army"
+    game_format: "Game Format"
+    notes: "Notes"
+    select_army: "Select an army..."
+    select_format: "Select a format..."
+    no_units_yet: "No units yet"
+    start_building: "Start building your army by adding units."
+    points_breakdown:
+      lords: "Lords"
+      heroes: "Heroes"
+      core: "Core"
+      special: "Special"
+      rare: "Rare"
+      min: "min %{value}"
+      max: "max %{value}"
+      
+  units:
+    points: "pts"
+    pts_per_model: "pts/model"
+    model:
+      one: "model"
+      other: "models"
+    models: "models"
+    base: "Base"
+    special_rules: "Special Rules"
+    unit_types:
+      lord: "Lord"
+      hero: "Hero"
+      core: "Core"
+      special: "Special"
+      rare: "Rare"
+      
+  game_formats:
+    small_warband: "Small Warband"
+    large_warband: "Large Warband"
+    border_patrol: "Border Patrol"
+    skirmish: "Skirmish"
+    standard: "Standard"
+    grand_battle: "Grand Battle"
+    apocalypse: "Apocalypse"
+    
+  footer:
+    resources: "Resources"
+    core_rules: "Core Rules"
+    army_books: "Army Books"
+    community: "Community"
+    rules_index: "6th Edition Rules Index"
+    disclaimer: "This is a fan project. Warhammer Fantasy is a trademark of Games Workshop Ltd."
+    not_affiliated: "This site is not affiliated with Games Workshop."
+    
+  common:
+    download: "Download"
+    view: "View"
+    edit: "Edit"
+    delete: "Delete"
+    save: "Save"
+    cancel: "Cancel"
+    back: "Back"
+    search: "Search"
