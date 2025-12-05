@@ -2,7 +2,7 @@
 
 module TooltipHelper
   # Генерирует тултип для специального правила
-  def rule_tooltip(rule_name, &block)
+  def rule_tooltip(rule_name, display_text = nil, &block)
     description = SpecialRule.description_for(rule_name)
     
     if description.present?
@@ -12,17 +12,17 @@ module TooltipHelper
       )
       
       content_tag :span, 
-        class: "rule-link cursor-help border-b border-dotted border-amber-600/50 hover:border-amber-400",
+        class: "rule-link cursor-help border-b border-dotted border-amber-600/50 hover:border-amber-400 hover:text-amber-300 transition-colors",
         data: { 
           controller: "tooltip",
           tooltip_content_value: content,
           tooltip_position_value: "top",
           action: "mouseenter->tooltip#show mouseleave->tooltip#hide"
         } do
-        block_given? ? yield : rule_name
+        block_given? ? yield : (display_text || rule_name)
       end
     else
-      block_given? ? yield : rule_name
+      block_given? ? yield : (display_text || rule_name)
     end
   end
 
@@ -44,21 +44,38 @@ module TooltipHelper
 
   # Парсит special_rules строку и оборачивает известные правила в тултипы
   def parse_special_rules(rules_string)
-    return "" if rules_string.blank?
+    return "".html_safe if rules_string.blank?
     
-    # Разбиваем по запятым, но сохраняем структуру
-    rules = rules_string.split(/,\s*/)
+    result = ERB::Util.html_escape(rules_string)
     
-    rules.map do |rule|
-      # Проверяем есть ли описание для этого правила
-      rule_name = rule.strip.gsub(/\s*\([^)]*\)/, '') # Убираем параметры в скобках для поиска
+    # Получаем все правила, сортируем по длине (сначала длинные, чтобы избежать частичных замен)
+    all_rules = SpecialRule.pluck(:name).sort_by { |r| -r.length }
+    
+    all_rules.each do |rule_name|
+      # Ищем правило в тексте (case-insensitive)
+      # Используем word boundary чтобы не заменять части слов
+      pattern = /\b(#{Regexp.escape(rule_name)})\b/i
       
-      if SpecialRule.find_by_name(rule_name)
-        rule_tooltip(rule_name) { rule }
-      else
-        rule
+      if result.match?(pattern)
+        description = SpecialRule.description_for(rule_name)
+        if description
+          tooltip_html = content_tag(:span, 
+            rule_name,
+            class: "rule-link cursor-help border-b border-dotted border-amber-600/50 hover:border-amber-400 hover:text-amber-300 transition-colors",
+            data: { 
+              controller: "tooltip",
+              tooltip_content_value: render_tooltip_content(title: rule_name, body: description),
+              tooltip_position_value: "top",
+              action: "mouseenter->tooltip#show mouseleave->tooltip#hide"
+            }
+          )
+          # Заменяем первое вхождение (с сохранением регистра оригинала)
+          result = result.sub(pattern, tooltip_html)
+        end
       end
-    end.join(", ").html_safe
+    end
+    
+    result.html_safe
   end
 
   private
@@ -80,7 +97,7 @@ module TooltipHelper
         #{unit_size_html(unit)}
         #{base_size_html(unit)}
         #{special_rules_html(unit)}
-        <div class="tooltip-points">#{unit.base_cost} #{t('units.points')}</div>
+        <div class="tooltip-points">#{unit.base_cost} #{I18n.t('units.points')}</div>
       </div>
     HTML
   end
@@ -100,19 +117,19 @@ module TooltipHelper
     return "" unless unit.min_size && unit.max_size
     
     size_text = if unit.min_size == unit.max_size
-      "#{unit.min_size} #{t('units.model', count: unit.min_size)}"
+      "#{unit.min_size} #{I18n.t('units.model', count: unit.min_size)}"
     else
-      "#{unit.min_size}-#{unit.max_size} #{t('units.models')}"
+      "#{unit.min_size}-#{unit.max_size} #{I18n.t('units.models')}"
     end
     
-    cost_text = unit.cost_per_model.to_i > 0 ? " (+#{unit.cost_per_model} #{t('units.pts_per_model')})" : ""
+    cost_text = unit.cost_per_model.to_i > 0 ? " (+#{unit.cost_per_model} #{I18n.t('units.pts_per_model')})" : ""
     
     "<div class='tooltip-size'>#{size_text}#{cost_text}</div>"
   end
 
   def base_size_html(unit)
     return "" unless unit.base_size.present?
-    "<div class='tooltip-base'>#{t('units.base')}: #{unit.base_size}</div>"
+    "<div class='tooltip-base'>#{I18n.t('units.base')}: #{unit.base_size}</div>"
   end
 
   def special_rules_html(unit)
@@ -120,4 +137,3 @@ module TooltipHelper
     "<div class='tooltip-rules'>#{ERB::Util.html_escape(unit.special_rules)}</div>"
   end
 end
-

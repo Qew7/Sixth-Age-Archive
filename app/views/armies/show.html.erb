@@ -32,14 +32,14 @@
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
               </svg>
-              Download PDF
+              <%= t('armies.download_pdf') %>
             <% end %>
           <% end %>
           <%= link_to new_army_list_path(army_id: @army.id), class: "inline-flex items-center gap-2 px-6 py-3 font-cinzel font-semibold rounded bg-stone-800 text-stone-200 hover:bg-stone-700 border border-stone-600 shadow-lg transition-all" do %>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
             </svg>
-            Build Army List
+            <%= t('armies.build_army_list') %>
           <% end %>
         </div>
       </div>
@@ -63,8 +63,8 @@
              end %>
           <div class="mb-10">
             <h2 class="font-cinzel text-xl font-semibold mb-4 flex items-center gap-3">
-              <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold uppercase tracking-wide border <%= badge_color %>"><%= unit_type.titleize %></span>
-              <span class="text-stone-500 font-normal text-base">(<%= units.count %> units)</span>
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded text-xs font-semibold uppercase tracking-wide border <%= badge_color %>"><%= t("units.unit_types.#{unit_type}") %></span>
+              <span class="text-stone-500 font-normal text-base">(<%= units.count %> <%= t('units.models') %>)</span>
             </h2>
 
             <div class="overflow-x-auto">
@@ -81,21 +81,26 @@
                     <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">I</th>
                     <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">A</th>
                     <th class="px-2 py-3 text-center text-amber-400 font-cinzel text-xs">Ld</th>
-                    <th class="px-4 py-3 text-right text-amber-400 font-cinzel font-semibold">Points</th>
+                    <th class="px-4 py-3 text-right text-amber-400 font-cinzel font-semibold"><%= t('units.points') %></th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-stone-800">
                   <% units.each do |unit| %>
                     <tr class="hover:bg-stone-800/30 transition-colors">
                       <td class="px-4 py-3">
-                        <div class="font-semibold text-stone-200"><%= unit.name %></div>
+                        <div class="font-semibold text-stone-200">
+                          <%= unit_tooltip(unit) %>
+                        </div>
                         <% if unit.min_size && unit.max_size %>
                           <div class="text-xs text-stone-500">
-                            <%= unit.min_size %>-<%= unit.max_size %> models
+                            <%= unit.min_size %>-<%= unit.max_size %> <%= t('units.models') %>
                             <% if unit.cost_per_model && unit.cost_per_model > 0 %>
-                              (+<%= unit.cost_per_model %> pts/model)
+                              (+<%= unit.cost_per_model %> <%= t('units.pts_per_model') %>)
                             <% end %>
                           </div>
+                        <% end %>
+                        <% if unit.base_size.present? %>
+                          <div class="text-xs text-stone-600"><%= t('units.base') %>: <%= unit.base_size %></div>
                         <% end %>
                       </td>
                       <% stats = unit.stat_line %>
@@ -109,13 +114,13 @@
                       <td class="px-2 py-3 text-center text-stone-300"><%= stats["A"] || "-" %></td>
                       <td class="px-2 py-3 text-center text-stone-300"><%= stats["Ld"] || "-" %></td>
                       <td class="px-4 py-3 text-right">
-                        <span class="font-cinzel text-amber-400 font-bold"><%= unit.base_cost %> pts</span>
+                        <span class="font-cinzel text-amber-400 font-bold"><%= unit.base_cost %> <%= t('units.points') %></span>
                       </td>
                     </tr>
                     <% if unit.special_rules.present? %>
                       <tr class="bg-stone-900/30">
                         <td colspan="11" class="px-4 py-2 text-xs text-stone-400">
-                          <span class="text-stone-500">Special Rules:</span> <%= unit.special_rules %>
+                          <span class="text-stone-500"><%= t('units.special_rules') %>:</span> <%= parse_special_rules(unit.special_rules) %>
                         </td>
                       </tr>
                     <% end %>
@@ -133,8 +138,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
           </svg>
         </div>
-        <h3 class="font-cinzel text-lg text-stone-400 mb-2">No units data yet</h3>
-        <p class="text-stone-500">Unit profiles for this army will be added soon.</p>
+        <h3 class="font-cinzel text-lg text-stone-400 mb-2"><%= t('armies.no_units') %></h3>
+        <p class="text-stone-500"><%= t('armies.no_units_description') %></p>
       </div>
     <% end %>
   </div>
